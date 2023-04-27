@@ -15,12 +15,16 @@ mod tests {
 
     #[tokio::test]
     async fn it_works() {
+        // Enable debug logging for reqwest crate
+        std::env::set_var("RUST_LOG", "reqwest::debug");
+        env_logger::init();
+
         let mut bloodbath = Bloodbath::new("https://api.bloodbath.io/rest");
         bloodbath.set_api_key("test-api-key".to_string());
         bloodbath.set_verbose(true);
 
         let event = BloodbathEvent::new()
-            .scheduled_for((chrono::Utc::now() + chrono::Duration::seconds(60)).timestamp())
+            .scheduled_for((chrono::Utc::now() + chrono::Duration::seconds(10)).timestamp())
             .headers(std::collections::HashMap::new())
             .method("POST".to_string())
             .body("some body content".to_string())
@@ -43,3 +47,4 @@ mod tests {
         println!("Event cancelled with ID: {}", event_id);
     }
 }
+
