@@ -1,6 +1,6 @@
 # bloodbath-rust
 
-This is a Rust implementation of the [Bloodbath API's](https://github.com/Loschcode/bloodbath-api) event scheduling library.
+This is a Rust implementation of the [Bloodbath](https://github.com/Loschcode/bloodbath-api) event scheduling library.
 
 ## Getting Started
 
