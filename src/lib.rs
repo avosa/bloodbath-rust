@@ -1,23 +1,45 @@
 mod bloodbath;
+mod bloodbath_event;
 mod configuration;
 mod event;
 mod utils;
+
 pub use configuration::Configuration;
 pub use event::Event;
 pub use bloodbath::Bloodbath;
+pub use bloodbath_event::BloodbathEvent;
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn it_works() {
-        let mut bloodbath = Bloodbath::new();
+    #[tokio::test]
+    async fn it_works() {
+        let mut bloodbath = Bloodbath::new("https://api.bloodbath.io/rest");
         bloodbath.set_api_key("test-api-key".to_string());
-        bloodbath.set_api_base("https://api.bloodbath.io/rest".to_string());
         bloodbath.set_verbose(true);
 
-        let event = bloodbath.event();
-        let _ = event.list().unwrap();
+        let event = BloodbathEvent::new()
+            .scheduled_for((chrono::Utc::now() + chrono::Duration::seconds(60)).timestamp())
+            .headers(std::collections::HashMap::new())
+            .method("POST".to_string())
+            .body("some body content".to_string())
+            .endpoint("https://api.acme.com/path".to_string());
+
+        let event_id = bloodbath.schedule_event(&event).await.unwrap();
+
+        println!("Event scheduled with ID: {}", event_id);
+
+        let events = bloodbath.list_events().await.unwrap();
+
+        println!("Events: {:?}", events);
+
+        let found_event = bloodbath.find_event(&event_id).await.unwrap();
+
+        println!("Found event: {:?}", found_event);
+
+        bloodbath.cancel_event(&event_id).await.unwrap();
+
+        println!("Event cancelled with ID: {}", event_id);
     }
 }
