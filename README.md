@@ -8,7 +8,7 @@ To use this library in your Rust project, add the following to your `Cargo.toml`
 
 ```toml
 [dependencies]
-bloodbath = "0.1.0"
+bloodbath = "0.1.1"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -45,7 +45,7 @@ async fn main() {
 
 Replace "your_api_key" with your Bloodbath API key.
 
-**IMPORTANT:** To use unpublished version direct from source, add to your `Cargo.toml` file:
+**IMPORTANT:** To use latest unpublished version direct from source, add to your `Cargo.toml` file:
 
 ```toml
 [dependencies]

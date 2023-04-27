@@ -1,6 +1,6 @@
 [package]
 name = "bloodbath"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "This is a Rust implementation of the Bloodbath event scheduling library."
 authors = ["Webster Avosa <webster@webstercodes.online>"]
