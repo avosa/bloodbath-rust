@@ -8,7 +8,7 @@ To use this library in your Rust project, add the following to your `Cargo.toml`
 
 ```toml
 [dependencies]
-bloodbath = "0.1.1"
+bloodbath = "0.1.3"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -19,7 +19,7 @@ Here's a basic example of how to use the bloodbath-rust library:
 ```rust
 //[your_project_name]/src/main.rs
 
-use bloodbath::{Bloodbath, Event};
+use bloodbath::{Bloodbath, Event, BloodbathEvent};
 use std::sync::Arc;
 
 #[tokio::main]
@@ -28,8 +28,18 @@ async fn main() {
     let bloodbath = Arc::new(Bloodbath::new("your_api_key"));
 
     // Schedule an event
-    let args = "time=2023-04-27T12:00:00Z;name=ExampleEvent";
-    let result = Event::schedule(&bloodbath, args).await;
+    let timestamp_str = "2023-04-27T12:00:00Z";
+    let timestamp = chrono::DateTime::parse_from_rfc3339(timestamp_str)
+        .unwrap()
+        .timestamp();
+    let event = BloodbathEvent {
+        scheduled_for: timestamp,
+        headers: Default::default(),
+        method: Default::default(),
+        body: Default::default(),
+        endpoint: "ExampleEvent".to_owned(),
+    };
+    let result = Event::schedule(&bloodbath, &event).await;
 
     match result {
         Ok(event) => {
