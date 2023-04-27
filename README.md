@@ -6,7 +6,7 @@ This is a Rust implementation of the [Bloodbath](https://github.com/Loschcode/bl
 
 To use this library in your Rust project, add the following to your `Cargo.toml` file:
 
-```rust
+```toml
 [dependencies]
 bloodbath-rust = { git = "https://github.com/avosa/bloodbath-rust.git" }
 ```
