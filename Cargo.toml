@@ -1,7 +1,10 @@
 [package]
-name = "bloodbath-rust"
+name = "bloodbath"
 version = "0.1.0"
 edition = "2021"
+description = "This is a Rust implementation of the Bloodbath event scheduling library."
+authors = ["Webster Avosa <webster@webstercodes.online>"]
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

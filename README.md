@@ -1,24 +1,28 @@
 # bloodbath-rust
 
-This is a Rust implementation of the [Bloodbath API's](https://github.com/Loschcode/bloodbath-api) event scheduling library.
+This is a Rust implementation of the [Bloodbath](https://docs.bloodbath.io/) event scheduling library. This library is to be moved [here.](https://github.com/bloodbath-io)
 
 ## Getting Started
 
 To use this library in your Rust project, add the following to your `Cargo.toml` file:
 
-```rust
+```toml
 [dependencies]
-bloodbath-rust = { git = "https://github.com/avosa/bloodbath-rust.git" }
+bloodbath = "0.1.0"
+tokio = { version = "1", features = ["full"] }
 ```
 
-# Usage Example
+## Usage
 
 Here's a basic example of how to use the bloodbath-rust library:
 
 ```rust
-use bloodbath_rust::{Bloodbath, Event};
+//[your_project_name]/src/main.rs
+
+use bloodbath::{Bloodbath, Event};
 use std::sync::Arc;
 
+#[tokio::main]
 async fn main() {
     // Create a Bloodbath instance with your API key
     let bloodbath = Arc::new(Bloodbath::new("your_api_key"));
@@ -28,14 +32,26 @@ async fn main() {
     let result = Event::schedule(&bloodbath, args).await;
 
     match result {
-        Ok(event) => println!("Event scheduled: {:?}", event),
+        Ok(event) => {
+            println!("Event scheduled successfully:");
+            println!("ID: {}", event.id);
+            println!("Name: {}", event.name);
+            println!("Timestamp: {}", event.timestamp);
+        },
         Err(e) => eprintln!("Error scheduling event: {:?}", e),
     }
 }
-
 ```
 
 Replace "your_api_key" with your Bloodbath API key.
+
+**IMPORTANT:** To use unpublished version direct from source, add to your `Cargo.toml` file:
+
+```toml
+[dependencies]
+bloodbath = { git = "https://github.com/avosa/bloodbath-rust.git" }
+tokio = { version = "1", features = ["full"] }
+```
 
 ## API
 
@@ -49,4 +65,4 @@ Bloodbath
 
 ## License
 
-bloodbath-rust is released under the MIT License. See LICENSE for details.
+bloodbath-rust is released under the MIT License.
