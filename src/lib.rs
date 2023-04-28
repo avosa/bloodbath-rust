@@ -14,7 +14,7 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn it_works() {
+    async fn it_works() -> Result<(), reqwest::Error> {
         // Enable debug logging for reqwest crate
         std::env::set_var("RUST_LOG", "reqwest::debug");
         env_logger::init();
@@ -30,21 +30,23 @@ mod tests {
             .body("some body content".to_string())
             .endpoint("https://api.acme.com/path".to_string());
 
-        let event_id = bloodbath.schedule_event(&event).await.unwrap();
+        let event_id = bloodbath.schedule_event(&event).await?;
 
         println!("Event scheduled with ID: {}", event_id);
 
-        let events = bloodbath.list_events().await.unwrap();
+        let events = bloodbath.list_events().await?;
 
         println!("Events: {:?}", events);
 
-        let found_event = bloodbath.find_event(&event_id).await.unwrap();
+        let found_event = bloodbath.find_event(&event_id).await?;
 
         println!("Found event: {:?}", found_event);
 
-        bloodbath.cancel_event(&event_id).await.unwrap();
+        bloodbath.cancel_event(&event_id).await?;
 
         println!("Event cancelled with ID: {}", event_id);
+
+        Ok(())
     }
 }
 
