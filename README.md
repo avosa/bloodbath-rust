@@ -75,16 +75,6 @@ Testing:
 cargo test --lib
 ```
 
-## API
+# Conclusion
 
-Bloodbath
-
-- `Arc::new(Bloodbath::new`: Creates a new Bloodbath instance.
-
-## Event
-
-- `Event::schedule(&bloodbath, &event).await`: Schedules a new event with the provided arguments.
-
-## License
-
-bloodbath-rust is released under the MIT License.
+Bloodbath is a powerful library that simplifies event scheduling and management. For more information, see the [official documentation](https://docs.bloodbath.io/).
