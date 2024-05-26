@@ -75,6 +75,6 @@ Testing:
 cargo test --lib
 ```
 
-# Conclusion
+## Conclusion
 
 Bloodbath is a powerful library that simplifies event scheduling and management. For more information, see the [official documentation](https://docs.bloodbath.io/).
